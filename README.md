@@ -1,9 +1,9 @@
-<H1> COP3530 - Project 3 </h1>
-This is the template for Project 3 repositories. It includes all the assignment instructions and documentation to help you use GitHub.
+<H1> COP3530 - Project 2 </h1>
+This is the template for Project 2 repositories. It includes all the assignment instructions and documentation to help you use GitHub.
 
 <h2> Table of Contents </h2>
 
-- [Documentation and resources on how to use GitHub for Project 3](#documentation-and-resources-on-how-to-use-github-for-project-3)
+- [Documentation and resources on how to use GitHub for Project 2](#documentation-and-resources-on-how-to-use-github-for-project-3)
 	- [Getting Started with the Project](#getting-started-with-the-project)
 		- [Step 1: Create Your Project Repository](#step-1-create-your-project-repository)
 		- [Step 2: Repository Name and Visibility](#step-2-repository-name-and-visibility)
@@ -24,7 +24,7 @@ This is the template for Project 3 repositories. It includes all the assignment 
 			- [Issues](#issues-1)
 			- [Bonus Documentation](#bonus-documentation)
 
-# Documentation and resources on how to use GitHub for Project 3
+# Documentation and resources on how to use GitHub for Project 2
 ## Getting Started with the Project
 
 This is a group project. As such, you're expected to equally contribute to all parts of the project. To ensure everyone is contributing, we have moved this project entirely to GitHub and will use GitHub logs to understand your contributions. To fully leverage the features that GitHub offers, you have to be familiar with what they are and how to use them.
@@ -40,7 +40,7 @@ The following video has instructions on local development using Git and GitHub:
 To illustrate the development process, we've also made a demo video to show how the GitHub flow looks like on an example:
 - [Mastering GitHub Workflow](https://youtu.be/PbTdROv0TJw) - Has chapters and closed-captions
 
-Here are the instructions on how to Collaborate for Project 3 which are similar to what was covered in the video. You may skip reading these if you have watched the video:
+Here are the instructions on how to Collaborate for project 2 which are similar to what was covered in the Introduction to GitHub video. You may skip reading these if you have watched that video:
 
 ### Step 1: Create Your Project Repository
 
@@ -69,7 +69,7 @@ More information about [collaborators](https://docs.github.com/en/repositories/m
 
 ### Step 4: Development
 
-During the development of your software, you will have to perform several tasks. In project 3a, you agreed on how you will distribute these tasks. GitHub has several features that can help you keep track of these, so please make sure to use them.
+During the development of your software, you will have to perform several tasks. In project 2a, you agreed on how you will distribute these tasks. GitHub has several features that can help you keep track of these, so please make sure to use them.
 
 #### Issues:
 
@@ -126,6 +126,20 @@ Commits are very important part of collaboration and should follow an agreed on 
     - **Where** the change was made
     - If it's a fix, describe the bug
 9.  Be **CONCISE**.
+
+##### Examples of Commit Messages:
+- "." - Very Bad (What does this even mean?)
+- "m" - Very Bad (Okay?)
+- ":)" - Very Bad (I hope your team members understand what this means because I don't)
+- "main function" - Bad (What about it?)
+- "First commit" - Bad (Congratulations?)
+- "Update main.cpp" - Better but still bad (What changed?)
+- "added mergesort.h, will add std::chrono later" - A bit better (Future plans shouldn't be the main point of a message. What does this commit change?)
+- "removed empty line from bottom of dictionary and updated UI" - Good (But stick to one change per commit)
+- "added filter buttons to sort menu" - Very Good (Use imperative mood and capitalize the messages, but the content of the message is excellent)
+
+
+
 
 #### Pull Requests
 
