@@ -37,11 +37,11 @@ public:
           int releaseYear = 0);
 
     //Operators for comparing movies - alphabetically
-    bool operator<(Movie& other);
-    bool operator>(Movie& other);
-    bool operator==(Movie& other);
-    bool operator<=(Movie& other);
-    bool operator>=(Movie& other);
+    bool operator<(const Movie& other) const;
+    bool operator>(const Movie& other) const;
+    bool operator==(const Movie& other) const;
+    bool operator<=(const Movie& other) const;
+    bool operator>=(const Movie& other) const;
 
     //All getter methods
     string getTitle();

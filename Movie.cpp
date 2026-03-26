@@ -11,11 +11,11 @@ Movie::Movie(string title, string url, int runtime, string genre,
       rating(rating), director(director), castActors(castActors),
       descriptionKeyWords(descriptionKeyWords), releaseYear(releaseYear) {}
 
-bool Movie::operator<(Movie& other) { return title < other.title; }
-bool Movie::operator>(Movie& other) { return title > other.title; }
-bool Movie::operator==(Movie& other) { return title == other.title; }
-bool Movie::operator<=(Movie& other) { return title <= other.title; }
-bool Movie::operator>=(Movie& other) { return title >= other.title; }
+bool Movie::operator<(const Movie& other) const { return title < other.title; }
+bool Movie::operator>(const Movie& other) const { return title > other.title; }
+bool Movie::operator==(const Movie& other) const { return title == other.title; }
+bool Movie::operator<=(const Movie& other) const { return title <= other.title; }
+bool Movie::operator>=(const Movie& other) const { return title >= other.title; }
 
 string Movie::getTitle() { return title; }
 string Movie::getUrl() { return url; }
