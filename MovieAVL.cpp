@@ -6,6 +6,89 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+#include <queue>
+#include <stack>
+#include <string>
+#include <vector>
+using namespace std;
+// Helper function to check movie match
+bool MovieAVL::matchesFilters(const Movie& movie,
+                        const string& title,
+                        const string& runtime,
+                        const string& genre,
+                        const string& ratings,
+                        const string& director,
+                        const string& cast,
+                        const string& description,
+                        const string& releaseYear) const {
+    auto contains = [](const string& data, const string& input) {
+        return input.empty() || data.find(input) != string::npos;
+    };
+    return contains(movie.getTitle(), title)
+        && contains(to_string(movie.getRuntime()), runtime)
+        && contains(movie.getGenre(), genre)
+        && contains(to_string(movie.getRating()), ratings)
+        && contains(movie.getDirector(), director)
+        && contains("", cast)
+        && contains("", description)
+        && contains(to_string(movie.getReleaseYear()), releaseYear);
+}
+
+// BFS traversal
+void MovieAVL::BFS(std::vector<Movie>& results,
+             const string& title,
+             const string& runtime,
+             const string& genre,
+             const string& ratings,
+             const string& director,
+             const string& cast,
+             const string& description,
+             const string& releaseYear) const {
+    if (!root) return;
+    std::queue<Node*> q;
+    q.push(root);
+    while (!q.empty()) {
+        Node* node = q.front(); q.pop();
+        if (matchesFilters(node->movie, title, runtime, genre, ratings, director, cast, description, releaseYear)) {
+            results.push_back(node->movie);
+        }
+        if (node->left) q.push(node->left);
+        if (node->right) q.push(node->right);
+    }
+}
+
+// DFS traversal preorder
+void MovieAVL::DFSHelper(Node* node,
+                   std::vector<Movie>& results,
+                   const string& title,
+                   const string& runtime,
+                   const string& genre,
+                   const string& ratings,
+                   const string& director,
+                   const string& cast,
+                   const string& description,
+                   const string& releaseYear) const {
+    if (!node) return;
+    if (matchesFilters(node->movie, title, runtime, genre, ratings, director, cast, description, releaseYear)) {
+        results.push_back(node->movie);
+    }
+    DFSHelper(node->left, results, title, runtime, genre, ratings, director, cast, description, releaseYear);
+    DFSHelper(node->right, results, title, runtime, genre, ratings, director, cast, description, releaseYear);
+}
+
+void MovieAVL::DFS(std::vector<Movie>& results,
+             const string& title,
+             const string& runtime,
+             const string& genre,
+             const string& ratings,
+             const string& director,
+             const string& cast,
+             const string& description,
+             const string& releaseYear) const {
+    DFSHelper(root, results, title, runtime, genre, ratings, director, cast, description, releaseYear);
+}
+
+
 
 // Private AVL Helper Functions
 int MovieAVL::getHeight(Node* node) const {
