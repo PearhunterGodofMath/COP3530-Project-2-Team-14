@@ -44,14 +44,15 @@ public:
     bool operator>=(const Movie& other) const;
 
     //All getter methods
-    string getTitle();
-    string getUrl();
-    int getRuntime();
-    string getGenre();
-    double getRating();
-    string getDirector();
-    vector<string> getCastActors();
-    vector<string> getDescriptionKeyWords();
+    string getTitle() const;
+    string getUrl() const;
+    int getRuntime() const;
+    string getGenre() const;
+    double getRating() const;
+    string getDirector() const;
+    vector<string> getCastActors() const;
+    vector<string> getDescriptionKeyWords() const;
+    int getReleaseYear() const;
     int getReleaseYear();
 
 
