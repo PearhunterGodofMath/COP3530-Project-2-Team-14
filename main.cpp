@@ -9,7 +9,6 @@
 #include "Movie.h"
 #include "MovieAVL.h"
 
-
 using namespace std;
 
 //Helper Functions for CSV File Management
@@ -81,7 +80,14 @@ vector<string> extractKeywords(string description) {
 int main() {
     MovieAVL avl;
 
-    ifstream file("100k_Movies_dataset.csv");
+
+    std::string filePath = __FILE__;
+    size_t lastSlash = filePath.find_last_of("/\\");
+    filePath = filePath.substr(0, lastSlash + 1);
+
+    ifstream file(filePath + "100k_Movies_dataset.csv");
+
+
     string line;
 
     if (!file.is_open()) {
@@ -131,7 +137,7 @@ int main() {
 
     while (true) {
         cout << ">>Welcome to Whiplash<<" << endl;
-        cout << "What may your good will be hunting for today?" << endl;
+        cout << "What may your goodwill be hunting for today?" << endl;
         cout << "(Press 0 at any prompt to exit)" << endl;
 
         string title, runtime, genre, ratings, director, cast, description, releaseYear;
@@ -160,10 +166,14 @@ int main() {
         cout << "Release Year: ";
         getline(cin, releaseYear);
         if (releaseYear == "0") break;
-        cout << "Would you like to do a breadth first search or depth first search? (Enter BFS or DFS): ";
+        cout << "Would you like to do a breadth-first search or a depth-first search? (Enter BFS or DFS): ";
         string searchType;
         getline(cin, searchType);
         if (searchType == "0") break;
+        cout << "How would you like to sortingCriteria the result (Enter Title, Run Time, Rating, or Release Year): ";
+        string sortingCriteria;
+        getline(cin, sortingCriteria);
+        if (sortingCriteria == "0") break;
 
         vector<Movie> results;
         clock_t startTime = clock();
@@ -174,6 +184,49 @@ int main() {
         }
         clock_t endTime = clock();
         int elapsed = (int) (1000.0 * (endTime - startTime) / CLOCKS_PER_SEC);
+
+        if (sortingCriteria == "Title" || sortingCriteria == "TITLE" || sortingCriteria == "title") {
+            for (int i = 0; i < results.size() -1; i++) {
+                for (int j = 0; j < results.size()-i-1; j++) {
+                    if (results[j].getTitle() > results[j+1].getTitle()) {
+                        Movie temp = results[j+1];
+                        results[j+1] = results[j];
+                        results[j] = temp;
+                    }
+                }
+            }
+        } else if (sortingCriteria == "Run Time" || sortingCriteria == "RUNTIME" || sortingCriteria == "runtime") {
+            for (int i = 0; i < results.size() -1; i++) {
+                for (int j = 0; j < results.size()-i-1; j++) {
+                    if (results[j].getRuntime() > results[j+1].getRuntime()) {
+                        Movie temp = results[j+1];
+                        results[j+1] = results[j];
+                        results[j] = temp;
+                    }
+                }
+            }
+        } else if (sortingCriteria == "Rating" || sortingCriteria == "RATING" || sortingCriteria == "rating") {
+            for (int i = 0; i < results.size() -1; i++) {
+                for (int j = 0; j < results.size()-i-1; j++) {
+                    if (results[j].getRating() < results[j+1].getRating()) {
+                        Movie temp = results[j+1];
+                        results[j+1] = results[j];
+                        results[j] = temp;
+                    }
+                }
+            }
+        } else if (sortingCriteria == "Release Year" || sortingCriteria == "RELEASE YEAR" || sortingCriteria == "release year") {
+            for (int i = 0; i < results.size() -1; i++) {
+                for (int j = 0; j < results.size()-i-1; j++) {
+                    if (results[j].getReleaseYear() < results[j+1].getReleaseYear()) {
+                        Movie temp = results[j+1];
+                        results[j+1] = results[j];
+                        results[j] = temp;
+                    }
+                }
+            }
+        }
+
 
         if (!results.empty()) {
             for (const auto &m: results) {
