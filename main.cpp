@@ -160,6 +160,7 @@ int main() {
         cout << "Cast Actors: ";
         getline(cin, cast);
         if (cast == "0") break;
+        cast.erase(remove(cast.begin(), cast.end(),' '), cast.end());
         cout << "Description Key Words: ";
         getline(cin, description);
         if (description == "0") break;
