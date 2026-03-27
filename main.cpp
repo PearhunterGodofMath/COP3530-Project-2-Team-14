@@ -166,11 +166,11 @@ int main() {
         cout << "Release Year: ";
         getline(cin, releaseYear);
         if (releaseYear == "0") break;
-        cout << "Would you like to do a breadth-first search or a depth-first search? (Enter BFS or DFS): ";
+        cout << "Would you like to perform a breadth-first search or a depth-first search? (Enter BFS or DFS): ";
         string searchType;
         getline(cin, searchType);
         if (searchType == "0") break;
-        cout << "How would you like to sortingCriteria the result (Enter Title, Run Time, Rating, or Release Year): ";
+        cout << "How would you like to sort the result (Enter Title, Run Time, Rating, or Release Year): ";
         string sortingCriteria;
         getline(cin, sortingCriteria);
         if (sortingCriteria == "0") break;
@@ -185,6 +185,7 @@ int main() {
         clock_t endTime = clock();
         int elapsed = (int) (1000.0 * (endTime - startTime) / CLOCKS_PER_SEC);
 
+        //Sorts the resulting vector of movies based of sortingCriteria
         if (sortingCriteria == "Title" || sortingCriteria == "TITLE" || sortingCriteria == "title") {
             for (int i = 0; i < results.size() -1; i++) {
                 for (int j = 0; j < results.size()-i-1; j++) {
@@ -227,7 +228,7 @@ int main() {
             }
         }
 
-
+        //Prints all movies
         if (!results.empty()) {
             for (const auto &m: results) {
                 cout << endl;
@@ -239,6 +240,7 @@ int main() {
             cout << "\nNo matching movie found." << endl;
         }
 
+        //Restarts program after all are printed
         cout << "\nPress Enter to search again or 0 to exit: ";
         string again;
         getline(cin, again);
