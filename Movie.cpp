@@ -12,11 +12,11 @@ Movie::Movie(string title, string ID, string url, int runtime, vector<string> ge
       descriptionKeyWords(descriptionKeyWords), releaseYear(releaseYear) {}
 
 // Operators
-bool Movie::operator<(const Movie& other) const { return ID < other.title; }
-bool Movie::operator>(const Movie& other) const { return title > other.title; }
-bool Movie::operator==(const Movie& other) const { return title == other.title; }
-bool Movie::operator<=(const Movie& other) const { return title <= other.title; }
-bool Movie::operator>=(const Movie& other) const { return title >= other.title; }
+bool Movie::operator<(const Movie& other) const { return ID < other.ID; }
+bool Movie::operator>(const Movie& other) const { return ID > other.ID; }
+bool Movie::operator==(const Movie& other) const { return ID == other.ID; }
+bool Movie::operator<=(const Movie& other) const { return ID <= other.ID; }
+bool Movie::operator>=(const Movie& other) const { return ID >= other.ID; }
 
 // Getters
 string Movie::getTitle() const { return title; }
