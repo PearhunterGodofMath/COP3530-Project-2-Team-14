@@ -14,6 +14,7 @@ class Movie
     private:
 
     string title;
+    string ID;
     string url;
     int runtime;
     vector<string> genres;
@@ -27,7 +28,8 @@ class Movie
 public:
 
     Movie(string title = "Blank Title",
-           string url = "Blank URL",
+          string ID = "Blank ID",
+          string url = "Blank URL",
           int runtime = 0,
           vector<string> genres = {},
           double rating = 0.0,
@@ -45,6 +47,7 @@ public:
 
     //All getter methods
     string getTitle() const;
+    string getID() const;
     string getUrl() const;
     int getRuntime() const;
     vector<string> getGenres() const;
