@@ -16,9 +16,9 @@ class Movie
     string title;
     string url;
     int runtime;
-    string genre;
+    vector<string> genres;
     double rating;
-    string director;
+    vector<string> director;
     vector<string> castActors;
     vector<string> descriptionKeyWords;
     int releaseYear;
@@ -29,9 +29,9 @@ public:
     Movie(string title = "Blank Title",
            string url = "Blank URL",
           int runtime = 0,
-          string genre = "Blank Genre",
+          vector<string> genres = {},
           double rating = 0.0,
-          string director = "Blank Director",
+          vector<string> director = {},
           vector<string> castActors = {},
           vector<string> descriptionKeyWords = {},
           int releaseYear = 0);
@@ -47,14 +47,12 @@ public:
     string getTitle() const;
     string getUrl() const;
     int getRuntime() const;
-    string getGenre() const;
+    vector<string> getGenres() const;
     double getRating() const;
-    string getDirector() const;
+    vector<string> getDirector() const;
     vector<string> getCastActors() const;
     vector<string> getDescriptionKeyWords() const;
     int getReleaseYear() const;
-    int getReleaseYear();
-
 
 };
 

@@ -4,56 +4,131 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <ctime>
 #include "Movie.h"
 #include "MovieAVL.h"
-#include "Movie.cpp"
-#include "MovieAVL.cpp"
+
 
 using namespace std;
+
+//Helper Functions for CSV File Management
+
+// Split CSV line while handling quotes
+vector<string> parseCSVLine(const string& line) {
+    vector<string> result;
+    string current;
+    bool inQuotes = false;
+
+    for (char c : line) {
+        if (c == '"') {
+            inQuotes = !inQuotes;
+        } else if (c == ',' && !inQuotes) {
+            result.push_back(current);
+            current.clear();
+        } else {
+            current += c;
+        }
+    }
+    result.push_back(current);
+    return result;
+}
+
+// Clean a list like ['Comedy', 'Drama', 'Music']
+vector<string> parseList(string field) {
+    vector<string> result;
+
+    // Remove brackets
+    field.erase(remove(field.begin(), field.end(), '['), field.end());
+    field.erase(remove(field.begin(), field.end(), ']'), field.end());
+    field.erase(remove(field.begin(), field.end(), '\''), field.end());
+
+    stringstream ss(field);
+    string item;
+
+    while (getline(ss, item, ',')) {
+        // Trim spaces
+        item.erase(0, item.find_first_not_of(" "));
+        item.erase(item.find_last_not_of(" ") + 1);
+        if (!item.empty()) {
+            result.push_back(item);
+        }
+    }
+
+    return result;
+}
+
+// Extract keywords from description
+vector<string> extractKeywords(string description) {
+    vector<string> words;
+    stringstream ss(description);
+    string word;
+
+    while (ss >> word) {
+        // Remove punctuation
+        word.erase(remove_if(word.begin(), word.end(), ::ispunct), word.end());
+
+        if (word.length() > 3) { // ignore small words
+            words.push_back(word);
+        }
+    }
+
+    return words;
+}
+
 
 
 int main() {
     MovieAVL avl;
+
     ifstream file("100k_Movies_dataset.csv");
     string line;
-    getline(file, line);
-    auto trim = [](const std::string& s) {
-        size_t start = s.find_first_not_of(" \"'");
-        size_t end = s.find_last_not_of(" \"'");
-        if (start == std::string::npos) {
-            return std::string("");
-        } else {
-            return s.substr(start, end - start + 1);
-        }
-    };
-    while (getline(file, line)) {
-        stringstream ss(line);
-        vector<string> fields;
-        string field;
-        while (getline(ss, field, ',')) {
-            if (!field.empty() && field.front() == '"') {
-                string rest;
-                while (field.back() != '"' && getline(ss, rest, ','))
-                    field += "," + rest;
-            }
-            fields.push_back(trim(field));
-        }
-        if (fields.size() < 10) continue;
-        string title = fields[0];
-        string url = fields[9];
-        int runtime = 0;
-        try { runtime = stoi(fields[2]); } catch (...) {}
-        string genre = fields[3];
-        double rating = 0.0;
-        try { rating = stod(fields[4]); } catch (...) {}
-        string director = fields[5];
-        vector<string> castActors;
-        vector<string> descKeywords;
-        int releaseYear = 0;
-        try { releaseYear = stoi(fields[8]); } catch (...) {}
-        avl.insert(Movie(title, url, runtime, genre, rating, director, castActors, descKeywords, releaseYear));
 
-        
+    if (!file.is_open()) {
+        cerr << "Error opening file." << endl;
+        return 1;
+    }
+
+    getline(file, line); // skip header
+
+    while (getline(file, line)) {
+        vector<string> fields = parseCSVLine(line);
+
+        if (fields.size() < 10) continue;
+
+        string title = fields[0];
+        string runtimeStr = fields[2];
+        string genreStr = fields[3];
+        string ratingStr = fields[4];
+        string directorStr = fields[5];
+        string castStr = fields[6];
+        string description = fields[7];
+        string yearStr = fields[8];
+        string link = fields[9];
+
+        int runtime = 0;
+        if (!runtimeStr.empty()) {
+            runtimeStr = runtimeStr.substr(0, runtimeStr.find(" "));
+            try { runtime = stoi(runtimeStr); } catch (...) {}
+        }
+
+        double rating = 0.0;
+        try { rating = stod(ratingStr); } catch (...) {}
+
+        int year = 0;
+        try { year = stoi(yearStr); } catch (...) {}
+
+        vector<string> genres = parseList(genreStr);
+        vector<string> director = parseList(directorStr);
+        vector<string> castActors = parseList(castStr);
+        vector<string> keywords = extractKeywords(description);
+
+        Movie movie(title, link, runtime, genres, rating, director, castActors, keywords, year);
+        avl.insert(movie);
+    }
+
+    cout << "Movies loaded successfully!\n\n";
+
     while (true) {
         cout << ">>Welcome to Whiplash<<" << endl;
         cout << "What may your good will be hunting for today?" << endl;
@@ -98,13 +173,14 @@ int main() {
             avl.DFS(results, title, runtime, genre, ratings, director, cast, description, releaseYear);
         }
         clock_t endTime = clock();
-        int elapsed = (int)(1000.0 * (endTime - startTime) / CLOCKS_PER_SEC);
+        int elapsed = (int) (1000.0 * (endTime - startTime) / CLOCKS_PER_SEC);
 
         if (!results.empty()) {
-            for (const auto& m : results) {
+            for (const auto &m: results) {
                 cout << endl;
                 cout << m.getTitle() << " - " << m.getUrl() << "\t\tElapsed Time: " << elapsed << "ms" << endl;
-                cout << m.getRating() << " / 10 stars | " << m.getRuntime() << " minutes | Released in " << m.getReleaseYear() << " | A " << m.getDirector() << " film" << endl;
+                cout << m.getRating() << " / 10 stars | " << m.getRuntime() << " minutes | Released in " << m.
+                        getReleaseYear() << " | A " << m.getDirector()[0] << " film" << endl;
             }
         } else {
             cout << "\nNo matching movie found." << endl;

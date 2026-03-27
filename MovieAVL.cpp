@@ -24,13 +24,66 @@ bool MovieAVL::matchesFilters(const Movie& movie,
     auto contains = [](const string& data, const string& input) {
         return input.empty() || data.find(input) != string::npos;
     };
+
+    // Genre Matching
+    bool genreMatch = true;
+    if (!genre.empty()) {
+        genreMatch = false;
+        vector<string> genres = movie.getGenres();
+        for (const string& g : genres) {
+            if (g.find(genre) != string::npos) {
+                genreMatch = true;
+                break;
+            }
+        }
+    }
+
+    // Director Matching
+    bool directorMatch = true;
+    if (!director.empty()) {
+        directorMatch = false;
+        vector<string> directors = movie.getDirector();
+        for (const string& d : directors) {
+            if (d.find(director) != string::npos) {
+                directorMatch = true;
+                break;
+            }
+        }
+    }
+
+    // Cast Matching
+    bool castMatch = true;
+    if (!cast.empty()) {
+        castMatch = false;
+        vector<string> actors = movie.getCastActors();
+        for (const string& actor : actors) {
+            if (actor.find(cast) != string::npos) {
+                castMatch = true;
+                break;
+            }
+        }
+    }
+
+    // Description Keyword Matching
+    bool descriptionMatch = true;
+    if (!description.empty()) {
+        descriptionMatch = false;
+        vector<string> keywords = movie.getDescriptionKeyWords();
+        for (const string& word : keywords) {
+            if (word.find(description) != string::npos) {
+                descriptionMatch = true;
+                break;
+            }
+        }
+    }
+
     return contains(movie.getTitle(), title)
         && contains(to_string(movie.getRuntime()), runtime)
-        && contains(movie.getGenre(), genre)
+        && genreMatch
         && contains(to_string(movie.getRating()), ratings)
-        && contains(movie.getDirector(), director)
-        && contains("", cast)
-        && contains("", description)
+        && directorMatch
+        && castMatch
+        && descriptionMatch
         && contains(to_string(movie.getReleaseYear()), releaseYear);
 }
 
