@@ -1,6 +1,4 @@
-<H1> COP3530 - Project 2 Team #14</h1>
-# Whiplash: Quite My Tempo Movie Filtering
-
+<H1> COP3530 - Project 2 Team #14 - Whiplash: Quite My Tempo Movie Filtering</h1>
 ## Description
 
 This program loads a large movie dataset from a CSV file and stores it in an AVL Tree data structure. The AVL Tree allows for efficient insertion and balanced storage of movie records.
