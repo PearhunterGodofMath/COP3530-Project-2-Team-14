@@ -103,6 +103,7 @@ int main() {
         if (fields.size() < 10) continue;
 
         string title = fields[0];
+        string id = fields[1];
         string runtimeStr = fields[2];
         string genreStr = fields[3];
         string ratingStr = fields[4];
@@ -129,7 +130,7 @@ int main() {
         vector<string> castActors = parseList(castStr);
         vector<string> keywords = extractKeywords(description);
 
-        Movie movie(title, link, runtime, genres, rating, director, castActors, keywords, year);
+        Movie movie(title, id, link, runtime, genres, rating, director, castActors, keywords, year);
         avl.insert(movie);
     }
 

@@ -7,7 +7,7 @@
 Movie::Movie(string title, string ID, string url, int runtime, vector<string> genres,
              double rating, vector<string> director, vector<string> castActors,
              vector<string> descriptionKeyWords, int releaseYear)
-    : title(title), ID(ID)url(url), runtime(runtime), genres(genres),
+    : title(title), ID(ID), url(url), runtime(runtime), genres(genres),
       rating(rating), director(director), castActors(castActors),
       descriptionKeyWords(descriptionKeyWords), releaseYear(releaseYear) {}
 
