@@ -17,12 +17,12 @@ bool Movie::operator==(const Movie& other) const { return title == other.title; 
 bool Movie::operator<=(const Movie& other) const { return title <= other.title; }
 bool Movie::operator>=(const Movie& other) const { return title >= other.title; }
 
-string Movie::getTitle() { return title; }
-string Movie::getUrl() { return url; }
-int Movie::getRuntime() { return runtime; }
-string Movie::getGenre() { return genre; }
-double Movie::getRating() { return rating; }
-string Movie::getDirector() { return director; }
-vector<string> Movie::getCastActors() { return castActors; }
-vector<string> Movie::getDescriptionKeyWords() { return descriptionKeyWords; }
-int Movie::getReleaseYear() { return releaseYear; }
+string Movie::getTitle() const { return title; }
+string Movie::getUrl() const { return url; }
+int Movie::getRuntime() const { return runtime; }
+string Movie::getGenre() const { return genre; }
+double Movie::getRating() const { return rating; }
+string Movie::getDirector() const { return director; }
+vector<string> Movie::getCastActors() const { return castActors; }
+vector<string> Movie::getDescriptionKeyWords() const { return descriptionKeyWords; }
+int Movie::getReleaseYear() const { return releaseYear; }
