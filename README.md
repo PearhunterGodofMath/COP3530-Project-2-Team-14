@@ -48,7 +48,7 @@ After the dataset is loaded, the program runs interactively in the terminal. The
 
 * After each search, the user can:
 
-  * Press **Enter** to search again
+  * Press **Enter** to search again(Sidenote: There is sometimes a random bug where the prompt for Title won't appear right away. In this case, enter the Title you are searching for, and press Enter or press Enter if you want to leave it blank)
   * Enter **0** to exit
 
 ---
