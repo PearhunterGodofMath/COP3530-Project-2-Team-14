@@ -10,7 +10,7 @@ Then the program allows users to search for movies using multiple filters such a
 
 ## User Input
 
-After the dataset is loaded, the program runs interactively in the terminal. The user is prompted to enter search criteria:
+After the dataset is loaded, the program runs interactively in the terminal. The user is prompted to enter search criteria, search type, and sort type:
 
 * Title
 * Runtime
@@ -21,6 +21,7 @@ After the dataset is loaded, the program runs interactively in the terminal. The
 * Description Keywords
 * Release Year
 * Search Type (BFS or DFS)
+* Sort Type (Alphabetical Title, Run Time, Rating, or Release Year)
 
 ### Notes:
 
@@ -31,7 +32,7 @@ After the dataset is loaded, the program runs interactively in the terminal. The
 
 ## Program Output
 
-* If matching movies are found, the program displays:
+* If matching movies are found, the program displays this for each movie and in sorted order if applicable:
 
   * Movie title and link
   * Elapsed time (in milliseconds)
